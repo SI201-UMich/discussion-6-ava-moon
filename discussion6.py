@@ -57,7 +57,22 @@ class HorseRaces:
             inner keys are (str) races, inner values are (int) race times
             EXAMPLE: {'Special Week': {'Tenno Sho Fall': 16.5, 'Tenno Sho Spring': 16.3, 'Teio Sho': 17.0}}
         '''
-        pass
+        headers = table[0]
+        races = headers[1:] 
+
+        race_dict = {}
+
+        for row in table[1:]:
+            horse_name = row[0]
+            times = row[1:]
+
+            inner = {}
+            for i, race_name in enumerate(races):
+                 inner[race_name] = float(times[i])
+
+            race_dict[horse_name] = inner
+
+        return race_dict
 
 ###############################################################################
 ##### TASK 2
