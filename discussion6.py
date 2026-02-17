@@ -93,15 +93,9 @@ class HorseRaces:
         if horse not in self.race_dict:
             return (None, 999.9)
 
-        race_times = self.race_dict[horse]  # dict: race -> time
-
-        fastest_race = None
-        fastest_time = 999.9
-
-        for race_name, time in race_times.items():
-            if time < fastest_time:
-                fastest_time = time
-                fastest_race = race_name
+        race_times = self.race_dict[horse]
+        fastest_race = min(race_times, key=race_times.get)
+        fastest_time = race_times[fastest_race]
 
         return (fastest_race, fastest_time)
 
@@ -117,7 +111,10 @@ class HorseRaces:
             A dictionary of tuples of each horse, with their fastest race and time.
             EXAMPLE: {"Oguri Cap": ("Tenno Sho Fall", 16.6), "Mejiro McQueen": ("Tenno Sho Fall", 16.1)}
         '''
-        pass
+        bests = {}
+        for horse in self.race_dict:
+            bests[horse] = self.horse_fastest_race(horse)
+        return bests
 
 ###############################################################################
 ##### TASK 4
