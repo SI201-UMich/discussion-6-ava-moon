@@ -68,7 +68,7 @@ class HorseRaces:
 
             inner = {}
             for i, race_name in enumerate(races):
-                 inner[race_name] = float(times[i])
+                inner[race_name] = float(times[i])
 
             race_dict[horse_name] = inner
 
@@ -90,7 +90,20 @@ class HorseRaces:
             tuple of fastest race name and the time
             EXAMPLE: ('Teio Sho', 14.8)
         '''
-        pass
+        if horse not in self.race_dict:
+            return (None, 999.9)
+
+        race_times = self.race_dict[horse]  # dict: race -> time
+
+        fastest_race = None
+        fastest_time = 999.9
+
+        for race_name, time in race_times.items():
+            if time < fastest_time:
+                fastest_time = time
+                fastest_race = race_name
+
+        return (fastest_race, fastest_time)
 
 ###############################################################################
 ##### TASK 3
